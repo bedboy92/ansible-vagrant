@@ -1,9 +1,0 @@
----
-- name: setup timezone
-  hosts: CentOS
-  gather_facts: no
-  become: yes
-
-  tasks:
-    - name: set timezone
-      timezone: name=Asia/Seoul
