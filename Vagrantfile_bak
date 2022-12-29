@@ -1,0 +1,42 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+Vagrant.configure("2") do |config|
+  config.vm.define:"ansible-server" do |cfg|
+  # boxes at https://vagrantcloud.com/search.
+    cfg.vm.box = "centos/7"
+	cfg.vm.provider:virtualbox do |vb|
+	  vb.name="Ansible-Server"
+	end
+	cfg.vm.host_name="ansible-server"
+	cfg.vm.synced_folder ".", "/vagrant", disabled: true
+    cfg.vm.provision "shell", path: "bootstrap.sh"
+  end	
+  
+  config.vm.define:"ansible-node1" do |cfg|
+  # boxes at https://vagrantcloud.com/search.
+    cfg.vm.box = "centos/7"
+	cfg.vm.provider:virtualbox do |vb|
+	  vb.name="Ansible-Node1"
+	end
+	cfg.vm.host_name="ansible-node1"
+	cfg.vm.synced_folder ".", "/vagrant", disabled: true
+    cfg.vm.provision "shell", path: "bootstrap.sh"
+  end	
+  
+  config.vm.define:"ansible-node2" do |cfg|
+  # boxes at https://vagrantcloud.com/search.
+    cfg.vm.box = "centos/7"
+	cfg.vm.provider:virtualbox do |vb|
+	  vb.name="Ansible-Node2"
+	end
+	cfg.vm.host_name="ansible-node2"
+	cfg.vm.synced_folder ".", "/vagrant", disabled: true
+    cfg.vm.provision "shell", path: "bootstrap.sh"
+  end	
+  
+  
+end

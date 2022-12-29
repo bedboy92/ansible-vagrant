@@ -16,6 +16,10 @@ Vagrant.configure("2") do |config|
 	#cfg.vm.provision "shell", path: "bootstrap.sh"
 	cfg.vm.provision "shell", path: "bash_ssh_conf_4_CentOS.sh"
   end
+  
+  # /mnt mount error 발생 시 
+  # vagrant plugin uninstall vagrant-vbguest 
+  # vagrant plugin install vagrant-vbguest --plugin-version 0.21 
 
 #ansible-node2
  config.vm.define:"ansible-node2" do |cfg|
