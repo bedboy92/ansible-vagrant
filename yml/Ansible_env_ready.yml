@@ -14,6 +14,7 @@
           192.168.1.12 node02
           192.168.1.13 node03
           192.168.1.14 node04
+          192.168.1.15 node05
 
     - name: Add "/etc/ansible/hosts"
       blockinfile:
@@ -26,7 +27,31 @@
           [Ubuntu]
           node03
           node04
-
+          
+          [Windows]
+          node05 ansible_connection=winrm ansible_ssh_user=vagrant ansible_ssh_port=5985
+          
+     # pip version error ??
+     # python version 2.7 => 3 upgrade 
+     # 0. mv /usr/bin/python /usr/bin/python_bak
+     # 0-1. ln -s /usr/bin/python3 /usr/bin/python
+     # 1. vi /usr/bin/yum 
+     # 2. #!/usr/bin/python => /usr/bin/python2
+     # 3. vi /usr/libexec/urlgrabber-ext-down
+     # 4. #!/usr/bin/python => /usr/bin/python2.7
+     # ????????????????????????????????????
+     # https://www.jacobbaek.com/1358
+     
+    - name : Install pip
+      yum:
+        name: python-pip
+        state: present
+      
+    - name : Install pywinrm
+      pip:
+        name: pywinrm
+        state: present
+        
     - name : Install sshpass
       yum:
         name: sshpass
