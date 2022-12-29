@@ -37,6 +37,40 @@ Vagrant.configure("2") do |config|
 	#cfg.vm.provision "shell", path: "bootstrap.sh"
 	cfg.vm.provision "shell", path: "bash_ssh_conf_4_CentOS.sh"
   end
+  
+  #Ansible-Node3
+   config.vm.define:"ansible-node3" do |cfg|
+  # boxes at https://vagrantcloud.com/search.
+    cfg.vm.box = "ubuntu/trusty64"
+    cfg.vm.provider:virtualbox do |vb|
+	  vb.name="Ansible-Node3"
+	  vb.customize ["modifyvm", :id, "--cpus",1]
+	  vb.customize ["modifyvm", :id, "--memory",512]
+	end
+	cfg.vm.host_name="ansible-node3"
+    cfg.vm.synced_folder ".", "/vagrant", disabled: true
+	cfg.vm.network "public_network", ip: "192.168.1.13"
+	cfg.vm.network "forwarded_port", guest: 22, host: 19213, auto_correct: false, id: "ssh"
+	#cfg.vm.provision "shell", path: "bootstrap.sh"
+	#cfg.vm.provision "shell", path: "bash_ssh_conf_4_CentOS.sh"
+  end
+  
+  #Ansible-Node4
+   config.vm.define:"ansible-node4" do |cfg|
+  # boxes at https://vagrantcloud.com/search.
+    cfg.vm.box = "ubuntu/trusty64"
+    cfg.vm.provider:virtualbox do |vb|
+	  vb.name="Ansible-Node4"
+	  vb.customize ["modifyvm", :id, "--cpus",1]
+	  vb.customize ["modifyvm", :id, "--memory",512]
+	end
+	cfg.vm.host_name="ansible-node4"
+    cfg.vm.synced_folder ".", "/vagrant", disabled: true
+	cfg.vm.network "public_network", ip: "192.168.1.14"
+	cfg.vm.network "forwarded_port", guest: 22, host: 19214, auto_correct: false, id: "ssh"
+	#cfg.vm.provision "shell", path: "bootstrap.sh"
+	#cfg.vm.provision "shell", path: "bash_ssh_conf_4_CentOS.sh"
+  end
 
 
   config.vm.define:"ansible-server" do |cfg|
